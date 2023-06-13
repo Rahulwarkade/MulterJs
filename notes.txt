@@ -1,0 +1,2 @@
+set image path to profile pic in db
+show img in img tab

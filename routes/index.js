@@ -21,8 +21,18 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-router.post('/upload',upload.single('avtar'),function(req,res){
-  res.send("file is uploaded!");
+router.post('/upload',isLoggedIn,upload.single('avtar'),function(req,res){
+  userModel.findOne({username : req.session.passport.user})
+  .then(function(user)
+  {
+    user.image = req.file.filename;
+    console.log(req.file);
+    user.save()
+    .then(function()
+    {
+      res.redirect("back");
+    })
+  })
 })
 router.get('/', function(req, res) {
   res.render('index');
