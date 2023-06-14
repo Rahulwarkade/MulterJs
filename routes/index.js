@@ -26,7 +26,6 @@ router.post('/upload',isLoggedIn,upload.single('avtar'),function(req,res){
   .then(function(user)
   {
     user.image = req.file.filename;
-    console.log(req.file);
     user.save()
     .then(function()
     {
