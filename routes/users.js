@@ -6,7 +6,10 @@ var userSchema = mongoose.Schema(
   {
     username : String,
     password : String,
-    image : String,
+    image : {
+      type : String,
+      default : "default.jpeg"
+    },
   }
 )
 

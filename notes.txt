@@ -1,2 +1,5 @@
 set image path to profile pic in db
 show img in img tab
+
+ajax and json
+jab bhi front end pe hume koi data bhejna ya fir mangaana ho BINA PAGE REFRESH KIYE.

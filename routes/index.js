@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
   }
 })
 
-const upload = multer({ storage: storage })
+const upload = multer({ storage: storage, fileFilter : fileFilter})
 
 router.post('/upload',isLoggedIn,upload.single('avtar'),function(req,res){
   userModel.findOne({username : req.session.passport.user})
@@ -33,6 +33,16 @@ router.post('/upload',isLoggedIn,upload.single('avtar'),function(req,res){
     })
   })
 })
+function fileFilter (req, file, cb) {
+  if(file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/svg' || file.mimetype === 'image/webp')
+  {
+    cb(null, true)
+  }
+  else 
+  {
+    cb(new Error('upload right format!! don"t walk fast'),false);
+  }
+}
 router.get('/', function(req, res) {
   res.render('index');
 });
@@ -49,7 +59,6 @@ router.post('/register',function(req,res){
   var newUser = new userModel(
     {
       username : req.body.username,
-      image : req.body.profileimage
     }
   );
   userModel.register(newUser,req.body.password)
